@@ -11,11 +11,11 @@ class NeoQuery(private val driver: Driver, private val serializer: INeoSerialize
 
         return session.use {
             val _parameters = serializer.serialize(parameters)
-            val statementResult = session.run(query, _parameters)
-            if (statementResult.hasNext()) {
-                CursorWrapper(statementResult.peek(), statementResult)
+            val result = session.run(query, _parameters)
+            if (result.hasNext()) {
+                CursorWrapper(result.peek(), result.list())
             } else {
-                CursorWrapper(InternalRecord(listOf(), arrayOf()), statementResult)
+                CursorWrapper(InternalRecord(listOf(), arrayOf()), result.list())
             }
         }
     }

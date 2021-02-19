@@ -1,17 +1,16 @@
 package github.etx.neo4j
 
 import org.neo4j.driver.Record
-import org.neo4j.driver.Result
 
-class CursorWrapper(private val record: Record, private val sr: Result) : Sequence<CursorWrapper> {
+class CursorWrapper(private val record: Record, private val sr: List<Record>) : Sequence<CursorWrapper> {
 
-    private class CursorIterator(val sr: Result) : Iterator<CursorWrapper> {
+    private class CursorIterator(val sr: List<Record>) : Iterator<CursorWrapper> {
         override fun next(): CursorWrapper {
-            return CursorWrapper(sr.next(), sr)
+            return CursorWrapper(sr.iterator().next(), sr)
         }
 
         override fun hasNext(): Boolean {
-            return sr.hasNext()
+            return sr.iterator().hasNext()
         }
     }
 
