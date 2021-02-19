@@ -1,7 +1,7 @@
 package github.etx.neo4j
 
-import org.neo4j.driver.v1.Logger
-import org.neo4j.driver.v1.Logging
+import org.neo4j.driver.Logger
+import org.neo4j.driver.Logging
 
 class NeoLogging(private val logger: org.slf4j.Logger) : Logging {
 
@@ -25,6 +25,10 @@ class NeoLogging(private val logger: org.slf4j.Logger) : Logging {
 
         override fun warn(message: String?, vararg params: Any?) {
             logger.warn(message, *params)
+        }
+
+        override fun warn(message: String?, cause: Throwable?) {
+            logger.warn(message, cause)
         }
 
         override fun error(message: String?, cause: Throwable?) {

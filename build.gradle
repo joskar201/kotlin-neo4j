@@ -1,12 +1,12 @@
 buildscript {
-    ext.kotlin_version = '1.1.2'
+    ext.kotlin_version = '1.4.30'
 
     repositories {
         mavenCentral()
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath group: 'org.junit.platform', name: 'junit-platform-gradle-plugin', version: '1.0.0-M4'
+        classpath group: 'org.junit.platform', name: 'junit-platform-gradle-plugin', version: '1.2.0'
     }
 }
 
@@ -18,7 +18,7 @@ apply plugin: 'maven'
 apply plugin: 'signing'
 
 archivesBaseName = "kotlin-neo4j"
-version = "0.0.7"
+version = "4.2.1"
 
 junitPlatform {
     filters {
@@ -32,7 +32,7 @@ repositories {
 }
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     compile 'org.slf4j:slf4j-api:1.7.21'
 
@@ -40,9 +40,9 @@ dependencies {
     compile 'org.neo4j.driver:neo4j-java-driver:4.2.1'
 
     //junit5
+    testImplementation("org.junit.jupiter:junit-jupiter:5.7.0")
+
     testCompile "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
-    testCompile("org.junit.jupiter:junit-jupiter-api:5.0.0-M4")
-    testRuntime("org.junit.jupiter:junit-jupiter-engine:5.0.0-M4")
 
     testCompile "io.github.erictsangx:kotlin-random:0.0.1"
 
@@ -55,13 +55,17 @@ dependencies {
     testCompile "com.fasterxml.jackson.module:jackson-module-kotlin:2.8.4"
 }
 
+test {
+    useJUnitPlatform()
+}
+
 task javadocJar(type: Jar) {
-    classifier = 'javadoc'
+    archiveClassifier.set("javadoc")
     from javadoc
 }
 
 task sourcesJar(type: Jar) {
-    classifier = 'sources'
+    archiveClassifier.set("sources")
     from sourceSets.main.allSource
 }
 

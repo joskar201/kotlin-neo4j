@@ -1,5 +1,6 @@
 package github.etx.neo4j
 
+import ch.qos.logback.classic.spi.LoggingEventVO.build
 import github.etx.test.Rand
 import helper.Gender
 import helper.Person
@@ -7,10 +8,10 @@ import helper.person
 import mu.KLogging
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.neo4j.driver.v1.AuthTokens
-import org.neo4j.driver.v1.Config
-import org.neo4j.driver.v1.Driver
-import org.neo4j.driver.v1.GraphDatabase
+import org.neo4j.driver.AuthTokens
+import org.neo4j.driver.Config
+import org.neo4j.driver.Driver
+import org.neo4j.driver.GraphDatabase
 import org.neo4j.graphdb.factory.GraphDatabaseSettings
 import org.neo4j.logging.slf4j.Slf4jLogProvider
 import org.neo4j.test.TestGraphDatabaseFactory
@@ -31,7 +32,7 @@ class NeoQueryTest {
     val driver: Driver = GraphDatabase.driver(
             "bolt://127.0.0.1:$port",
             AuthTokens.basic("neo4j", "123")
-            , Config.build().withLogging(NeoLogging(logger)).toConfig())
+            ,Config.builder().withLogging(NeoLogging(logger)).build())
     val serializer = DefaultNeoSerializer()
     val subject: NeoQuery = NeoQuery(driver, serializer)
 

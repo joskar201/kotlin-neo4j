@@ -1,7 +1,7 @@
 package github.etx.neo4j
 
 import org.neo4j.driver.internal.value.*
-import org.neo4j.driver.v1.Value
+import org.neo4j.driver.Value
 
 
 class Cursor(private val value: Value) {

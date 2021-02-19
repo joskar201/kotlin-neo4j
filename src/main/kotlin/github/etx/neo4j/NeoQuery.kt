@@ -1,12 +1,7 @@
 package github.etx.neo4j
 
+import org.neo4j.driver.Driver
 import org.neo4j.driver.internal.InternalRecord
-import org.neo4j.driver.v1.Driver
-import java.time.Instant
-import java.time.OffsetDateTime
-import java.time.OffsetTime
-import java.time.ZonedDateTime
-
 
 
 class NeoQuery(private val driver: Driver, private val serializer: INeoSerializer) {
